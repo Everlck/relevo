@@ -1,0 +1,39 @@
+[package]
+name = "app"
+description = "App de escritorio de control de publicidad (Relevo)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "relevo"
+path = "src/main.rs"
+
+[build-dependencies]
+winresource = "0.1"
+
+[dependencies]
+amcp = { path = "../amcp" }
+nucleo = { path = "../nucleo" }
+tokio.workspace = true
+serde.workspace = true
+tracing.workspace = true
+egui = { version = "0.37", features = ["monochrome_emoji_fonts"] }
+eframe = { version = "0.37", default-features = false, features = ["default_fonts", "glow", "clipboard", "accesskit", "wayland", "x11"] }
+egui_extras = "0.37"
+image = { version = "0.25", default-features = false, features = ["png"] }
+serde_json = "1"
+toml = "0.8"
+anyhow = "1"
+time = { version = "0.3", features = ["local-offset"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+cpal = "0.18.2"
+rfd = "0.18.0"
+dirs = "7.0.0"
+rust_xlsxwriter = "0.102.0"
+genpdf = "0.2.0"
+epaint_default_fonts = "0.37"
+ureq = "3.5.1"
+zip = { version = "9.5.1", default-features = false, features = ["deflate"] }
+sevenz-rust2 = { version = "0.25", default-features = false }
+toml_edit = "0.22"

@@ -1,0 +1,27 @@
+[workspace]
+resolver = "2"
+members = ["crates/amcp", "crates/nucleo", "crates/app"]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = "1"
+thiserror = "2"
+tracing = "0.1"
+
+# Versión final (cargo build --release): lo más rápida y liviana posible.
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true
+
+# Al probar con "cargo run" (sin --release), las bibliotecas van optimizadas igual:
+# la ventana se dibuja fluida aunque el código propio compile rápido.
+[profile.dev.package."*"]
+opt-level = 2

@@ -1,0 +1,13 @@
+[package]
+name = "amcp"
+description = "Cliente AMCP para controlar CasparCG Server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+tokio.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+base64 = "0.22"

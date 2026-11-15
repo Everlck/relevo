@@ -1,0 +1,22 @@
+/target
+*.db
+*.db-journal
+/medios
+.vscode/
+.idea/
+/tandas
+/datos
+/instalador/salida
+/instalador/ffmpeg
+/respaldos
+
+# Configuración de cada PC (claves, direcciones). En el repositorio va config.ejemplo.toml.
+/config.toml
+*.log
+# Copias de prueba y archivos del sistema
+/prueba-*
+Thumbs.db
+desktop.ini
+
+# Cosas para borrar a mano (no se suben)
+/_para_borrar

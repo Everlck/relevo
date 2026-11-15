@@ -1,0 +1,22 @@
+[package]
+name = "nucleo"
+description = "Núcleo de la app: tanda/lista de reproducción y controlador de CasparCG"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+amcp = { path = "../amcp" }
+tokio.workspace = true
+tracing.workspace = true
+serde.workspace = true
+fastrand = "2"
+time = { version = "0.3", features = ["local-offset", "formatting", "macros"] }
+rosc = "0.11"
+serde_json = "1"
+argon2 = { version = "0.5", features = ["std"] }
+base64 = "0.22"
+tokio-tungstenite = "0.30"
+futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
+fs4 = "1.1.0"
+zip = { version = "9.5.1", default-features = false, features = ["deflate"] }

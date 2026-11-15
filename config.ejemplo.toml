@@ -1,0 +1,244 @@
+# Configuración de la app de publicidad (Relevo)
+
+[casparcg]
+# Dónde está CasparCG Server. Si corre en la misma PC, deja 127.0.0.1.
+host = "127.0.0.1"
+puerto = 5250
+# Canal de salida y capa donde se reproduce la publicidad.
+# La señal de TV (cuando entre por CasparCG) irá en una capa más baja, por ejemplo la 10.
+canal = 1
+capa_publicidad = 20
+
+# Carpeta "media" de CasparCG. Déjala vacía para que la app se la pregunte a CasparCG.
+# Ejemplo: carpeta_medios = 'C:\CasparCG Server\media'
+carpeta_medios = ''
+
+# Puerto donde CasparCG envía el tiempo exacto de reproducción (OSC). 0 = no usar.
+# En casparcg.config agrega un <predefined-client> con 127.0.0.1 y este puerto.
+osc_puerto = 6250
+
+# Carpeta donde está casparcg.exe. Vacía = la app la busca sola (C:\, D:\, Escritorio, Descargas…).
+carpeta_programa = ''
+
+# Al abrir la app: abrir CasparCG y su scanner si no están abiertos,
+# y activar el tiempo exacto (OSC) en casparcg.config (guarda una copia antes).
+iniciar_automaticamente = true
+
+# Cómo se abren CasparCG y su scanner cuando los abre Relevo:
+#   "visibles" = cada uno en su ventana de consola (como siempre)
+#   "ocultas"  = sin ventanas; lo que escriben se ve en la pestaña CasparCG (F4)
+consolas = "visibles"
+
+# Si la ventana de video de CasparCG se minimiza (por ejemplo con Windows + D), Relevo
+# la vuelve a mostrar sola: minimizada, CasparCG la deja en negro.
+salida_siempre_visible = true
+
+# Al cerrar Relevo con una publicidad al aire: detenerla (vuelve la señal de TV).
+detener_al_cerrar = true
+
+# Al cerrar Relevo, cerrar también CasparCG y su scanner, solo si los abrió Relevo
+# (si ya estaban abiertos antes, no se tocan): "si", "preguntar" o "no".
+cerrar_al_salir = "si"
+
+# Salida de video de CasparCG (su ventana "screen"), al abrir la app:
+#   "auto"    = si hay dos o más monitores, a pantalla completa en el segundo
+#   "2", "3"… = a pantalla completa en ese monitor
+#   "ventana" = en una ventana normal
+#   "no"      = no tocar casparcg.config
+# CasparCG la toma al reiniciarse. También se cambia en ⚙ Ajustes.
+pantalla = "auto"
+
+[pauta]
+# Orden de los spots normales en la tanda automática:
+#   "hora"     = primero el de la hora programada más temprana (el que vence antes)
+#   "cercania" = primero el de la hora más cercana a la hora actual
+# Los spots con prioridad siempre van primero.
+orden = "hora"
+
+# Tolerancia (± minutos) que trae una pauta nueva.
+tolerancia_por_defecto = 15
+
+# Duración del corte en AUTO ("m:ss"; "0:00" = sin tope). Si la tanda no entra, los
+# prioritarios van primero y el resto queda para el siguiente corte. En la app se puede
+# cambiar (y se recuerda lo último que elegiste).
+duracion_corte = "0:00"
+
+# Carpetas de CasparCG con piezas para rellenar el tiempo que sobra del corte
+# (IDs del canal, promos, "volvemos en breve"…). Se activa con "Rellenar" en la tanda.
+relleno = ["IDS", "PROMOS"]
+
+# Rellenar primero con spots de otros clientes (el que menos salió hoy) y después con
+# las carpetas de relleno.
+relleno_clientes = true
+
+# Minutos después de su horario en que un pase que no salió (o se cortó) entra solo en
+# el próximo corte (0 = no se recupera).
+recuperar_min = 180
+
+[archivos]
+# Videos que están fuera de la carpeta de CasparCG:
+#   "directo" = se reproducen desde donde están, sin copiarlos (la app comprueba
+#               que CasparCG lo acepte; si no, los copia igual)
+#   "copiar"  = se copian siempre a media\IMPORTADOS
+externos = "directo"
+
+# ffmpeg (vista previa, monitor y Biblioteca). Vacío = buscarlo solo: el que descarga
+# Relevo, junto al programa, el del instalador, winget, C:\ffmpeg, el PATH…
+# Si no hay ninguno, Relevo lo descarga solo (necesita internet esa vez).
+ffmpeg = ''
+
+# Revisar una vez al día si hay una versión nueva de ffmpeg (se actualiza con un clic
+# en «🎞 ffmpeg», abajo).
+actualizar_ffmpeg = true
+
+[remoto]
+# "principal" = esta PC controla CasparCG (y acepta conexiones de otras PCs).
+# "remoto"    = esta PC se conecta a la principal para operar o administrar desde lejos.
+modo = "principal"
+
+# En la PC principal: aceptar conexiones de otras PCs de la red, y en qué puerto.
+servir = true
+puerto = 7800
+
+# En una PC remota: IP de la PC principal y último usuario (se pueden cambiar al conectar).
+servidor = ''
+usuario = ''
+
+[vista_previa]
+# Con sonido al abrir la vista previa (luego se recuerda lo último que elegiste).
+sonido = true
+# Salida de sonido: vacía = la predeterminada de Windows. Se elige con ⚙ en el reproductor.
+salida_audio = ""
+# En la PC principal, callar la vista previa mientras hay publicidad al aire
+# (por si su sonido sale por la misma tarjeta que va a la mezcladora).
+silenciar_al_aire = true
+
+[biblioteca]
+# Formato del canal: la Biblioteca marca los videos que no lo cumplen y "Convertir" los lleva a él.
+resolucion = "1920x1080"
+fps = 29.97
+# Volumen objetivo: -23 LUFS es la norma EBU R128 (-24 si el canal usa ATSC A/85).
+lufs = -23.0
+# Diferencia aceptada (± dB) antes de marcar un spot como "muy fuerte" o "muy bajo".
+tolerancia = 2.0
+
+[respaldo]
+# Respaldo diario automático (pautas, usuarios, registro de emisión, revisiones y esta
+# configuración; los videos no). Vacía = carpeta "respaldos" junto a este archivo.
+# Mejor en otro disco o en una memoria USB, por ejemplo: carpeta = 'D:\Respaldos Relevo'
+carpeta = ""
+# Cuántos respaldos guardar (los más viejos se borran solos).
+guardar = 30
+
+[api]
+# API para botoneras (Stream Deck…) u otros programas de la red. Ver README.
+activa = false
+puerto = 7801
+# Clave obligatoria: inventa una y ponla también en la botonera.
+clave = ""
+
+[interfaz]
+# Animaciones de transición (apágalas si la PC es lenta).
+animaciones = true
+# Botón «Volver a TV» (y la tecla Esc para cortar la tanda). Oculto por ahora.
+boton_volver_a_tv = false
+# Aviso visual (un marco que destella, SIN sonido) cuando faltan estos segundos para
+# volver a la señal de TV. 0 = sin aviso.
+aviso_fin_seg = 10
+# Tamaño de la interfaz en %: 0 = automático (si la ventana es chica, por ejemplo una
+# pantalla de 1366 o 1080 con la escala de Windows al 125 %, todo se achica para que
+# quepa); 70 a 130 = fijo.
+escala = 0
+# Horas en formato de 12 h (8:30 pm) en vez de 24 h (20:30). Al escribirlas se acepta cualquiera.
+hora_12 = false
+
+[transiciones]
+# Transición entre spots y al entrar o salir de la señal de TV:
+# "corte", "fundido", "barrido", "empuje" o "deslizar".
+# La elegida en «Al aire» queda guardada en datos/transicion.json.
+tipo = "fundido"
+segundos = 0.5
+
+[atajos]
+# Atajos de teclado. Se cambian en ⚙ Ajustes → Atajos de teclado.
+# Ejemplos: "Space", "F5", "Ctrl+ArrowRight", "Ctrl+Shift+P". "" = sin atajo.
+play_pausa = "Space"
+siguiente = "Ctrl+ArrowRight"
+anterior = "Ctrl+ArrowLeft"
+detener = "Ctrl+Backspace"
+anadir = "Enter"
+quitar = "Delete"
+subir = "Ctrl+ArrowUp"
+bajar = "Ctrl+ArrowDown"
+emision = "F1"
+biblioteca = "F2"
+reportes = "F3"
+compacta = "F11"
+casparcg = "F4"
+
+[deteccion]
+# Detección del corte del canal: Relevo mira su señal y vigila el logo; cuando
+# desaparece unos segundos, el canal fue a comerciales.
+# Se configura (y se aprende el logo) en ✂ (barra de abajo) → Configurar…
+activa = false
+# "capturadora" (nombre del dispositivo), "web" (dirección de la página o del video),
+# "iptv" (el canal de [iptv]), "pantalla" (lo que se ve en un monitor) o
+# "archivo" (un video grabado, para probar).
+fuente = "capturadora"
+origen = ""
+# Con "pantalla": número del monitor (0 = todo el escritorio).
+monitor = 0
+# Zona del logo, en partes de la imagen (0 a 1).
+x = 0.80
+y = 0.04
+ancho = 0.17
+alto = 0.17
+# Parecido mínimo con el logo aprendido para decir "hay logo".
+umbral = 0.35
+# Segundos seguidos sin logo para dar el corte por empezado.
+segundos = 2.0
+# "avisar" = solo un aviso en pantalla; "iniciar" = lanza la tanda sola.
+accion = "avisar"
+# Minutos mínimos entre un corte detectado y el siguiente.
+espera_min = 3.0
+# Cuando vuelve el logo con publicidad al aire: "avisar" (cartel verde) o
+# "volver" (vuelve al canal y corta la tanda; solo en modo Transmisión).
+al_volver = "avisar"
+
+[iptv]
+# Canal por IPTV para el modo Transmisión: CasparCG reproduce el canal desde la
+# red, en una capa debajo de la publicidad (en vez de recibirlo por la mezcladora).
+# Mientras hay publicidad al aire, el sonido del canal se baja; al terminar, vuelve.
+# Se configura en ⚙ Ajustes → Señal por IPTV (se aplica sin reiniciar).
+# activa = permitir el modo Transmisión (el modo se elige en la pantalla principal).
+activa = false
+# Dirección del canal: http(s)://….m3u8, udp://@239.x.x.x:1234, rtp://…
+direccion = ""
+# Lista de canales .m3u (dirección o archivo), para elegir el canal por nombre.
+lista = ""
+# Capa de CasparCG para el canal (tiene que ser menor que capa_publicidad).
+capa = 10
+
+[emision]
+# "publicidad": CasparCG solo pone la publicidad (el canal va por la mezcladora).
+# "transmision": CasparCG muestra el canal por IPTV y la publicidad entra encima
+# (hace falta [iptv] activa = true). Se cambia arriba, en la pantalla principal.
+modo = "publicidad"
+
+[preview]
+# Monitor PREVIEW (arriba a la derecha): una señal que se mira dentro de Relevo, sin
+# sonido y sin salir al aire. Se elige con ⚙ en el mismo monitor.
+# "ninguna", "capturadora", "web", "iptv", "pantalla" o "archivo".
+fuente = "ninguna"
+origen = ""
+monitor = 0
+
+[actualizacion]
+# Al abrir Relevo (y cada 6 horas) revisa en GitHub si hay una versión nueva y lo
+# avisa abajo, en «Relevo X.Y.Z». Nunca se instala sola: hay que pulsar «Actualizar»,
+# y no deja hacerlo con publicidad al aire. Se conservan config.toml y los datos.
+activa = true
+# Repositorio de GitHub donde se publican las versiones (usuario/nombre).
+repo = "Everlck/relevo"
+# Solo si el repositorio es privado: una clave de GitHub de solo lectura.
+token = ""
